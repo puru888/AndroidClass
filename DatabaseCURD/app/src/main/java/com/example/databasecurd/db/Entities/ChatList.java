@@ -1,7 +1,15 @@
 package com.example.databasecurd.db.Entities;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity
 public class ChatList {
+
+    @PrimaryKey(autoGenerate = true)
     private int id;
+    @ColumnInfo(name = "user_name")
     private String userName;
 
     public ChatList(String userName) {

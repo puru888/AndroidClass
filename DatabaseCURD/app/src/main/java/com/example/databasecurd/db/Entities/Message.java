@@ -1,11 +1,21 @@
 package com.example.databasecurd.db.Entities;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+@Entity
 public class Message {
+    @PrimaryKey(autoGenerate = true)
     private int id;
+    @ColumnInfo
     private String message;
+    @ColumnInfo(name = "user_name")
     private String userName;
+    @ColumnInfo
     private int from;
+    @ColumnInfo
     private int to;
+    @ColumnInfo
     private boolean isRead;
 
     public Message(String message, String userName, int from, int to, boolean isRead) {
@@ -15,14 +25,6 @@ public class Message {
         this.to = to;
         this.isRead = isRead;
     }
-
-    public Message(String message, int from, int to, boolean isRead) {
-        this.message = message;
-        this.from = from;
-        this.to = to;
-        this.isRead = isRead;
-    }
-
     public int getId() {
         return id;
     }

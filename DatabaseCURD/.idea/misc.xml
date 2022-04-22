@@ -13,10 +13,14 @@
         <entry key="..\:/Users/papuj/AndroidStudioProjects/DatabaseCURD/app/src/main/res/layout/activity_logged_in.xml" value="0.2" />
         <entry key="..\:/Users/papuj/AndroidStudioProjects/DatabaseCURD/app/src/main/res/layout/activity_login.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/papuj/AndroidStudioProjects/DatabaseCURD/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Users/papuj/AndroidStudioProjects/DatabaseCURD/app/src/main/res/layout/activity_message.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/papuj/AndroidStudioProjects/DatabaseCURD/app/src/main/res/layout/activity_message_list.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/papuj/AndroidStudioProjects/DatabaseCURD/app/src/main/res/layout/activity_register.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/papuj/AndroidStudioProjects/DatabaseCURD/app/src/main/res/layout/chat_list_view.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/papuj/AndroidStudioProjects/DatabaseCURD/app/src/main/res/layout/from_user_message_list_view.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/papuj/AndroidStudioProjects/DatabaseCURD/app/src/main/res/layout/login_dialog.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/papuj/AndroidStudioProjects/DatabaseCURD/app/src/main/res/layout/message_list_view.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/papuj/AndroidStudioProjects/DatabaseCURD/app/src/main/res/layout/to_user_message_list_view.xml" value="0.25416666666666665" />
       </map>
     </option>
   </component>

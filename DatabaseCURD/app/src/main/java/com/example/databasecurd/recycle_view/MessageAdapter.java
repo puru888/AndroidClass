@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.databasecurd.R;
 import com.example.databasecurd.db.Entities.Message;
 
 import java.util.ArrayList;
@@ -24,7 +25,10 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageViewHolder> {
         messageList.remove(message);
         notifyDataSetChanged();
     }
-
+    public void changeData(List<Message> messageList){
+        this.messageList = messageList;
+        notifyDataSetChanged();
+    }
 
     @NonNull
     @Override
@@ -46,6 +50,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        return 0;
+        return R.layout.from_user_message_list_view;
     }
 }

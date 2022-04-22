@@ -40,7 +40,6 @@ public class LoginActivity extends AppCompatActivity {
         EditText loginEmail = findViewById(R.id.login_email);
         EditText loginPassword = findViewById(R.id.login_password);
 
-
         findViewById(R.id.login_loginBtn).setOnClickListener(view -> {
             String email = loginEmail.getText().toString();
             String password = loginPassword.getText().toString();
