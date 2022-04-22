@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.example.day07restapi.entities.User;
 import com.example.day07restapi.network.GithubApiService;
+import com.squareup.picasso.Picasso;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,6 +37,9 @@ public class ProfileActivity extends AppCompatActivity {
                 login.setText(user.getLogin());
                 name.setText(user.getName());
                 description.setText(user.getBio());
+                Picasso.get()
+                        .load(user.getAvatarUrl())
+                        .into(avatar);
             }
 
             @Override
