@@ -16,6 +16,11 @@ import java.util.List;
 public class MessageAdapter extends RecyclerView.Adapter<MessageViewHolder> {
 
     private List<Message> messageList = new ArrayList<>();
+    private int toUserId;
+
+    public MessageAdapter(int toUserId) {
+        this.toUserId = toUserId;
+    }
 
     public void addMessage(Message message){
         messageList.add(message);
@@ -50,6 +55,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        return R.layout.from_user_message_list_view;
+        if (messageList.get(position).getTo() == toUserId)
+            return R.layout.from_user_message_list_view;
+        else
+            return R.layout.to_user_message_list_view;
     }
 }

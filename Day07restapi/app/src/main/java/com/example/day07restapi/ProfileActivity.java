@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.day07restapi.entities.Search;
 import com.example.day07restapi.entities.User;
 import com.example.day07restapi.network.GithubApiService;
 import com.squareup.picasso.Picasso;
@@ -32,7 +33,7 @@ public class ProfileActivity extends AppCompatActivity {
         callUser.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                Toast.makeText(ProfileActivity.this,"YA",Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProfileActivity.this, "YA", Toast.LENGTH_SHORT).show();
                 User user = response.body();
                 login.setText(user.getLogin());
                 name.setText(user.getName());
@@ -45,6 +46,22 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 Log.e("ProfileActivity_callUser", "Call failed" + t.getMessage());
+            }
+        });
+
+
+        Call<Search> searchCall = GithubApiService.service.searchIssues("windows+label:bug+language:python+state:open",
+                "created", "asc");
+
+        searchCall.enqueue(new Callback<Search>() {
+            @Override
+            public void onResponse(Call<Search> call, Response<Search> response) {
+                Toast.makeText(ProfileActivity.this, "Hey", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<Search> call, Throwable t) {
+
             }
         });
     }

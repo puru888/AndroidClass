@@ -16,7 +16,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 //todo : Add your entities and change version when DB structure changes
-@Database(entities = {Register.class, Message.class, ChatList.class}, version = 2)
+@Database(entities = {Register.class, Message.class, ChatList.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
 
     //todo: Add all your DAO here..

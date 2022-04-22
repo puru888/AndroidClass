@@ -8,7 +8,9 @@ import android.util.Log;
 import android.widget.Button;
 
 import com.example.databasecurd.db.AppDatabase;
+import com.example.databasecurd.db.Dao.ChatDao;
 import com.example.databasecurd.db.Dao.RegisterDao;
+import com.example.databasecurd.db.Entities.ChatList;
 import com.example.databasecurd.db.Entities.Register;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -36,6 +38,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         final AppDatabase appDatabase = AppDatabase.getDatabaseInstance(this);
         final RegisterDao registerDao = appDatabase.registerDao();
+        final ChatDao chatDao = appDatabase.chatDao();
 
         TextInputLayout firstNameText = findViewById(R.id.register_firstName);
         TextInputLayout lastNameText = findViewById(R.id.register_lastName);
@@ -96,7 +99,10 @@ public class RegisterActivity extends AppCompatActivity {
 
             AppDatabase.databaseWriteExecutor.execute(() -> {
                 if (id != -1) registerDao.update(register);
-                else registerDao.insert(register);
+                else {
+                    registerDao.insert(register);
+                    chatDao.insertChat(new ChatList(firstName));
+                }
             });
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);

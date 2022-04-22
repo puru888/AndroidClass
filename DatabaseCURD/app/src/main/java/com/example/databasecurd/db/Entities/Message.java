@@ -5,40 +5,20 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 @Entity
 public class Message {
-    @PrimaryKey(autoGenerate = true)
-    private int id;
     @ColumnInfo
     private String message;
-    @ColumnInfo(name = "user_name")
-    private String userName;
-    @ColumnInfo
+    @PrimaryKey
     private int from;
     @ColumnInfo
     private int to;
     @ColumnInfo
     private boolean isRead;
 
-    public Message(String message, String userName, int from, int to, boolean isRead) {
+    public Message(String message,int from, int to, boolean isRead) {
         this.message = message;
-        this.userName = userName;
         this.from = from;
         this.to = to;
         this.isRead = isRead;
-    }
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public String getMessage() {

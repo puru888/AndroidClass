@@ -44,10 +44,10 @@ public class LoginActivity extends AppCompatActivity {
             String email = loginEmail.getText().toString();
             String password = loginPassword.getText().toString();
             appDatabase.getQueryExecutor().execute(()->{
-                List<Register> resultData = registerDao.getData(email,password);
-                if (!resultData.isEmpty()){
-                    Intent intent = new Intent(this,ChatListActivity.class);
-//                            .putExtra(EXTRA_ID,resultData.get(0).getId())
+                Register resultData = registerDao.getData(email,password);
+                if (resultData != null){
+                    Intent intent = new Intent(this,ChatListActivity.class)
+                              .putExtra(EXTRA_ID,resultData.getId());
 //                            .putExtra(EXTRA_FIRST_NAME,resultData.get(0).getFirstName())
 //                            .putExtra(EXTRA_LAST_NAME,resultData.get(0).getLastName())
 //                            .putExtra(EXTRA_PHONE,resultData.get(0).getPhone())

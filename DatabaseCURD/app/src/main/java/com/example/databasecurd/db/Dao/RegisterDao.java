@@ -20,5 +20,5 @@ public interface RegisterDao {
     void update(Register register);
 
     @Query("select * from Register where email= :email and password= :password")
-    List<Register> getData(String email, String password);
+    Register getData(String email, String password);
 }

@@ -1,7 +1,6 @@
 package com.example.databasecurd;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,18 +30,16 @@ public class MessageActivity extends AppCompatActivity {
 
         ArrayList<Message> messages = new ArrayList<>();
         Intent getIntent = getIntent();
-        if (getIntent.hasExtra(ChatListViewHolder.EXTRA_USER_NAME)){
-            messages.add(new Message("Hello",getIntent.getStringExtra(ChatListViewHolder.EXTRA_USER_NAME), 1, 2, false));
-        }
-        userName.setText(messages.get(0).getUserName());
+            messages.add(new Message("Hello", 1, 2, false));
+        userName.setText(getIntent.getStringExtra(ChatListViewHolder.EXTRA_TO_USER_NAME));
 
-        MessageAdapter messageAdapter = new MessageAdapter();
+        MessageAdapter messageAdapter = new MessageAdapter(getIntent.getIntExtra(ChatListViewHolder.EXTRA_TO_USER_ID,-1));
         messageAdapter.changeData(messages);
         list.setAdapter(messageAdapter);
 
         findViewById(R.id.activity_message_sendBtn).setOnClickListener(v -> {
             String messageValue = messageEditText.getText().toString();
-            Message message = new Message(messageValue,"Jainil",2,1,false);
+            Message message = new Message(messageValue,2,1,false);
             messageAdapter.addMessage(message);
         });
     }
