@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/registerActivity_constraint"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterActivity">
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/registerActivity_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:gravity="center"
+            android:hint="Enter Name" />
+
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/registerActivity_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:hint="Enter Phone#"
+        android:minHeight="48dp"
+        app:layout_constraintTop_toBottomOf="@+id/registerActivity_name" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/registerActivity_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        style="?attr/materialButtonOutlinedStyle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registerActivity_number"
+        app:layout_constraintVertical_bias="0.853"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

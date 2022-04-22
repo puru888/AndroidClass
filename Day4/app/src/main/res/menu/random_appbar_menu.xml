@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/appBarMenu_android"
+        android:icon="@drawable/ic_launcher_foreground"
+        android:title="Android"
+        app:showAsAction="always"
+        android:orderInCategory="10"
+        />
+    <group android:orderInCategory="20">
+        <item
+            android:id="@+id/appBarMenu_A"
+            android:title="A"
+            android:orderInCategory="20"
+            />
+        <item
+            android:id="@+id/appBarMenu_B"
+            android:title="B"
+            android:orderInCategory="30"
+            >
+            <menu>
+                <item
+                    android:id="@+id/appBarMenu_B1"
+                    android:title="B1"
+                    android:orderInCategory="10"
+                    />
+                <item
+                    android:id="@+id/appBarMenu_B2"
+                    android:title="B2"
+                    android:orderInCategory="20"
+                    />
+            </menu>
+        </item>
+    </group>
+</menu>
