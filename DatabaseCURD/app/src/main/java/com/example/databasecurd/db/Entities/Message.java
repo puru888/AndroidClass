@@ -4,6 +4,11 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverter;
+import androidx.room.TypeConverters;
+
+import java.sql.Timestamp;
+import java.util.Date;
 
 @Entity(foreignKeys = @ForeignKey(entity = ChatList.class, parentColumns = "id", childColumns = "to"))
 public class Message {
@@ -15,6 +20,8 @@ public class Message {
     private int from;
     @ColumnInfo
     private int to;
+    @TypeConverters({Converter.class})
+    private Date date;
     @ColumnInfo
     private boolean isRead;
 
@@ -22,6 +29,7 @@ public class Message {
         this.message = message;
         this.from = from;
         this.to = to;
+        date = new Date(System.currentTimeMillis());
         this.isRead = isRead;
     }
 
@@ -55,6 +63,14 @@ public class Message {
 
     public void setTo(int to) {
         this.to = to;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public boolean isRead() {

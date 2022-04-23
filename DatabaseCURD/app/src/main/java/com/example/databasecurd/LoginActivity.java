@@ -13,6 +13,7 @@ import com.example.databasecurd.db.AppDatabase;
 import com.example.databasecurd.db.Dao.RegisterDao;
 import com.example.databasecurd.db.Entities.Register;
 
+import java.util.Date;
 import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
@@ -41,8 +42,10 @@ public class LoginActivity extends AppCompatActivity {
         EditText loginPassword = findViewById(R.id.login_password);
 
         findViewById(R.id.login_loginBtn).setOnClickListener(view -> {
+
             String email = loginEmail.getText().toString();
             String password = loginPassword.getText().toString();
+
             appDatabase.getQueryExecutor().execute(()->{
                 Register resultData = registerDao.getData(email,password);
                 if (resultData != null){
@@ -67,6 +70,8 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         findViewById(R.id.login_RegisterBtn).setOnClickListener(view -> {
+            Date date = new Date(System.currentTimeMillis());
+            Log.e("Time", date.toString());
             Intent intent = new Intent(this,RegisterActivity.class);
             startActivity(intent);
         });

@@ -11,6 +11,7 @@ import com.example.databasecurd.MessageActivity;
 import com.example.databasecurd.R;
 import com.example.databasecurd.db.AppDatabase;
 import com.example.databasecurd.db.Dao.ChatDao;
+import com.example.databasecurd.db.Dao.MessageDao;
 import com.example.databasecurd.db.Entities.ChatList;
 
 public class ChatListViewHolder extends RecyclerView.ViewHolder {
@@ -29,10 +30,12 @@ public class ChatListViewHolder extends RecyclerView.ViewHolder {
 
         final AppDatabase appDatabase = AppDatabase.getDatabaseInstance(itemView.getContext());
         final ChatDao chatDao = appDatabase.chatDao();
+        final MessageDao messageDao = appDatabase.messageDao();
 
         itemView.setOnClickListener(view -> {
             AppDatabase.databaseWriteExecutor.execute(() -> {
                 int id = chatDao.getChatId(userName.getText().toString());
+                messageDao.updateIsRead(chatListAdapter.getLoggedInUserId(), id);
                 Intent intent = new Intent(itemView.getContext(), MessageActivity.class)
                         .putExtra(EXTRA_TO_USER_NAME, userName.getText().toString())
                         .putExtra(EXTRA_TO_USER_ID,id)

@@ -36,13 +36,13 @@ public class MessageActivity extends AppCompatActivity {
         MessageDao messageDao = appDatabase.messageDao();
 
         Intent getIntent = getIntent();
-        int loggedInUserId = getIntent.getIntExtra(ChatListViewHolder.EXTRA_LOGGED_USER_ID,-1);
-        int toUserId = getIntent.getIntExtra(ChatListViewHolder.EXTRA_TO_USER_ID,-1);
+        int loggedInUserId = getIntent.getIntExtra(ChatListViewHolder.EXTRA_LOGGED_USER_ID, -1);
+        int toUserId = getIntent.getIntExtra(ChatListViewHolder.EXTRA_TO_USER_ID, -1);
         userName.setText(getIntent.getStringExtra(ChatListViewHolder.EXTRA_TO_USER_NAME));
 
         MessageAdapter messageAdapter = new MessageAdapter(toUserId);
-        AppDatabase.databaseWriteExecutor.execute(()->{
-           List<Message> messages =  messageDao.getMessages(loggedInUserId,toUserId);
+        AppDatabase.databaseWriteExecutor.execute(() -> {
+            List<Message> messages = messageDao.getMessages(loggedInUserId, toUserId);
             messageAdapter.changeData(messages);
             list.setAdapter(messageAdapter);
         });
@@ -51,8 +51,8 @@ public class MessageActivity extends AppCompatActivity {
             String messageValue = messageEditText.getText().toString();
 //            Log.e("Logged in user",String.valueOf(getIntent.getIntExtra(ChatListViewHolder.EXTRA_LOGGED_USER_ID,-1)));
 //            Log.e("to user",String.valueOf(getIntent.getIntExtra(ChatListViewHolder.EXTRA_TO_USER_ID,-1)));
-            Message message = new Message(messageValue,loggedInUserId,toUserId,false);
-            AppDatabase.databaseWriteExecutor.execute(()->{
+            Message message = new Message(messageValue, loggedInUserId, toUserId, false);
+            AppDatabase.databaseWriteExecutor.execute(() -> {
                 messageDao.insert(message);
             });
             messageEditText.setText("");
