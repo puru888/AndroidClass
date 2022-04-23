@@ -43,6 +43,7 @@ public class ChatListActivity extends AppCompatActivity {
 
         ChatListAdapter chatListAdapter = new ChatListAdapter();
         if (!chats.isEmpty()) {
+            chatListAdapter.setLoggedInUserId(receivedIntentId.getIntExtra(LoginActivity.EXTRA_ID,-1));
             chatListAdapter.changeData(chats);
             list.setAdapter(chatListAdapter);
         }

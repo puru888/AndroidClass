@@ -19,6 +19,7 @@ public class ChatListViewHolder extends RecyclerView.ViewHolder {
     private final ChatListAdapter chatListAdapter;
     public static final String EXTRA_TO_USER_NAME = "userName";
     public static final String EXTRA_TO_USER_ID = "id";
+    public static final String EXTRA_LOGGED_USER_ID = "loggedUserId";
 
     public ChatListViewHolder(@NonNull View itemView, ChatListAdapter chatListAdapter) {
         super(itemView);
@@ -34,7 +35,8 @@ public class ChatListViewHolder extends RecyclerView.ViewHolder {
                 int id = chatDao.getChatId(userName.getText().toString());
                 Intent intent = new Intent(itemView.getContext(), MessageActivity.class)
                         .putExtra(EXTRA_TO_USER_NAME, userName.getText().toString())
-                        .putExtra(EXTRA_TO_USER_ID,id);
+                        .putExtra(EXTRA_TO_USER_ID,id)
+                        .putExtra(EXTRA_LOGGED_USER_ID,chatListAdapter.getLoggedInUserId());
                 itemView.getContext().startActivity(intent);
             });
         });

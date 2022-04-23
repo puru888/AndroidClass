@@ -2,23 +2,35 @@ package com.example.databasecurd.db.Entities;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
-@Entity
+
+@Entity(foreignKeys = @ForeignKey(entity = ChatList.class, parentColumns = "id", childColumns = "to"))
 public class Message {
+    @PrimaryKey(autoGenerate = true)
+    private int id;
     @ColumnInfo
     private String message;
-    @PrimaryKey
+    @ColumnInfo
     private int from;
     @ColumnInfo
     private int to;
     @ColumnInfo
     private boolean isRead;
 
-    public Message(String message,int from, int to, boolean isRead) {
+    public Message(String message, int from, int to, boolean isRead) {
         this.message = message;
         this.from = from;
         this.to = to;
         this.isRead = isRead;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getMessage() {

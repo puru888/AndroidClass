@@ -6,14 +6,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.databasecurd.db.AppDatabase;
+import com.example.databasecurd.db.Dao.MessageDao;
 import com.example.databasecurd.db.Entities.Message;
 import com.example.databasecurd.recycle_view.ChatListViewHolder;
 import com.example.databasecurd.recycle_view.MessageAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MessageActivity extends AppCompatActivity {
 
@@ -28,18 +32,30 @@ public class MessageActivity extends AppCompatActivity {
         list.setHasFixedSize(false);
         list.setLayoutManager(new LinearLayoutManager(this));
 
-        ArrayList<Message> messages = new ArrayList<>();
+        AppDatabase appDatabase = AppDatabase.getDatabaseInstance(this);
+        MessageDao messageDao = appDatabase.messageDao();
+
         Intent getIntent = getIntent();
-            messages.add(new Message("Hello", 1, 2, false));
+        int loggedInUserId = getIntent.getIntExtra(ChatListViewHolder.EXTRA_LOGGED_USER_ID,-1);
+        int toUserId = getIntent.getIntExtra(ChatListViewHolder.EXTRA_TO_USER_ID,-1);
         userName.setText(getIntent.getStringExtra(ChatListViewHolder.EXTRA_TO_USER_NAME));
 
-        MessageAdapter messageAdapter = new MessageAdapter(getIntent.getIntExtra(ChatListViewHolder.EXTRA_TO_USER_ID,-1));
-        messageAdapter.changeData(messages);
-        list.setAdapter(messageAdapter);
+        MessageAdapter messageAdapter = new MessageAdapter(toUserId);
+        AppDatabase.databaseWriteExecutor.execute(()->{
+           List<Message> messages =  messageDao.getMessages(loggedInUserId,toUserId);
+            messageAdapter.changeData(messages);
+            list.setAdapter(messageAdapter);
+        });
 
         findViewById(R.id.activity_message_sendBtn).setOnClickListener(v -> {
             String messageValue = messageEditText.getText().toString();
-            Message message = new Message(messageValue,2,1,false);
+//            Log.e("Logged in user",String.valueOf(getIntent.getIntExtra(ChatListViewHolder.EXTRA_LOGGED_USER_ID,-1)));
+//            Log.e("to user",String.valueOf(getIntent.getIntExtra(ChatListViewHolder.EXTRA_TO_USER_ID,-1)));
+            Message message = new Message(messageValue,loggedInUserId,toUserId,false);
+            AppDatabase.databaseWriteExecutor.execute(()->{
+                messageDao.insert(message);
+            });
+            messageEditText.setText("");
             messageAdapter.addMessage(message);
         });
     }

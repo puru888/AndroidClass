@@ -16,21 +16,32 @@ import java.util.List;
 public class ChatListAdapter extends RecyclerView.Adapter<ChatListViewHolder> {
 
     private List<ChatList> chatList = new ArrayList<>();
+    private int loggedInUserId = -1;
 
-    public void addChat(ChatList chat){
+    public void addChat(ChatList chat) {
         chatList.add(chat);
     }
-    public void removeChat(ChatList chat){
+
+    public void removeChat(ChatList chat) {
         chatList.remove(chat);
     }
-    public void changeData(List<ChatList> chatList) {this.chatList = chatList;}
+
+    public void changeData(List<ChatList> chatList) {
+        this.chatList = chatList;
+    }
+    public void setLoggedInUserId(int id) {
+        this.loggedInUserId = id;
+    }
+    public int getLoggedInUserId(){
+        return loggedInUserId;
+    }
 
     @NonNull
     @Override
     public ChatListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View inflateView = LayoutInflater.from(parent.getContext())
-                .inflate(viewType,parent,false);
-        return new ChatListViewHolder(inflateView,this);
+                .inflate(viewType, parent, false);
+        return new ChatListViewHolder(inflateView, this);
     }
 
     @Override

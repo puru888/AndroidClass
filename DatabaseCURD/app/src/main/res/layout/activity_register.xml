@@ -3,19 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/nameIcon"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginTop="35dp"
+        android:layout_height="wrap_content"
         android:src="@drawable/outline_person_24"
-        app:layout_constraintEnd_toStartOf="@+id/register_firstName"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/register_firstName"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/phoneIcon"
+        app:layout_constraintBottom_toTopOf="@+id/register_phone"
         />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -24,11 +22,10 @@
         android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:hint="First Name"
-        app:layout_constraintEnd_toStartOf="@+id/register_lastName"
-        app:layout_constraintStart_toEndOf="@id/nameIcon"
+        app:layout_constraintStart_toEndOf="@+id/nameIcon"
+        app:layout_constraintEnd_toStartOf="@id/register_lastName"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/register_phone"
-        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintBottom_toTopOf="@+id/register_phone"
         >
 
         <com.google.android.material.textfield.TextInputEditText
@@ -43,8 +40,8 @@
         android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:hint="Last Name"
+        app:layout_constraintStart_toEndOf="@+id/register_firstName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/register_firstName"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/register_phone"
         >
@@ -58,24 +55,24 @@
     <ImageView
         android:id="@+id/phoneIcon"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginTop="40dp"
+        android:layout_height="wrap_content"
         android:src="@drawable/outline_local_phone_24"
-        app:layout_constraintEnd_toStartOf="@+id/register_phone"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameIcon" />
+        app:layout_constraintEnd_toStartOf="@+id/register_phone"
+        app:layout_constraintTop_toBottomOf="@id/register_firstName"
+        app:layout_constraintBottom_toTopOf="@id/register_address"
+        />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/register_phone"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="340dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:hint="Phone"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/phoneIcon"
-        app:layout_constraintTop_toBottomOf="@+id/register_firstName"
-        app:layout_constraintBottom_toTopOf="@+id/register_address"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/register_firstName"
+        app:layout_constraintBottom_toTopOf="@id/register_address"
         >
 
         <com.google.android.material.textfield.TextInputEditText
@@ -87,24 +84,24 @@
     <ImageView
         android:id="@+id/addressIcon"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginTop="40dp"
+        android:layout_height="wrap_content"
         android:src="@drawable/outline_location_on_24"
-        app:layout_constraintEnd_toStartOf="@+id/register_address"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phoneIcon" />
+        app:layout_constraintEnd_toStartOf="@id/register_address"
+        app:layout_constraintTop_toBottomOf="@id/register_phone"
+        app:layout_constraintBottom_toTopOf="@id/register_city"
+        />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/register_address"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="340dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:hint="Address"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/register_phone"
+        app:layout_constraintBottom_toTopOf="@id/register_city"
         app:layout_constraintStart_toEndOf="@id/addressIcon"
-        app:layout_constraintTop_toBottomOf="@+id/register_phone"
-        app:layout_constraintBottom_toTopOf="@+id/register_city"
+        app:layout_constraintEnd_toEndOf="parent"
         >
 
         <com.google.android.material.textfield.TextInputEditText
@@ -118,7 +115,6 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="340dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:hint="City"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/addressIcon"
@@ -137,7 +133,6 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:hint="State"
         app:layout_constraintEnd_toStartOf="@+id/register_zip"
         app:layout_constraintStart_toEndOf="@id/addressIcon"
@@ -156,11 +151,12 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:hint="Zip"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/register_state"
-        app:layout_constraintTop_toBottomOf="@+id/register_city">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/register_city"
+        app:layout_constraintBottom_toTopOf="@id/register_email"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -171,19 +167,19 @@
     <ImageView
         android:id="@+id/emailIcon"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginTop="35dp"
+        android:layout_height="wrap_content"
         android:src="@drawable/outline_email_24"
-        app:layout_constraintEnd_toStartOf="@id/register_email"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_state" />
+        app:layout_constraintEnd_toStartOf="@id/register_email"
+        app:layout_constraintTop_toBottomOf="@id/register_state"
+        app:layout_constraintBottom_toTopOf="@id/register_password"
+        />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/register_email"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="340dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:hint="Email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/emailIcon"
@@ -202,7 +198,6 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="340dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:hint="Password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/emailIcon"
@@ -221,11 +216,12 @@
         style="?attr/materialButtonOutlinedStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:text="Register"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/emailIcon"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/emailIcon"
-        app:layout_constraintTop_toBottomOf="@+id/register_password" />
+        app:layout_constraintTop_toBottomOf="@+id/register_password"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

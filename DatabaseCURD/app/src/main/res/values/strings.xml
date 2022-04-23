@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">DatabaseCURD</string>
+    <string name="register_emptyError">Field cannot be empty</string>
 </resources>

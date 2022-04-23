@@ -1,11 +1,14 @@
 package com.example.databasecurd;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.databasecurd.db.AppDatabase;
 import com.example.databasecurd.db.Dao.ChatDao;
@@ -19,16 +22,8 @@ import java.util.List;
 public class RegisterActivity extends AppCompatActivity {
 
     private int id = -1;
-    private String firstName = null;
-    private String lastName = null;
-    private String phone = null;
-    private String address = null;
-    private String city = null;
-    private String state = null;
-    private String zip = null;
-    private String email = null;
-    private String password = null;
     Register register = null;
+    private Resources resources;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,15 +35,17 @@ public class RegisterActivity extends AppCompatActivity {
         final RegisterDao registerDao = appDatabase.registerDao();
         final ChatDao chatDao = appDatabase.chatDao();
 
-        TextInputLayout firstNameText = findViewById(R.id.register_firstName);
-        TextInputLayout lastNameText = findViewById(R.id.register_lastName);
-        TextInputLayout phoneText = findViewById(R.id.register_phone);
-        TextInputLayout addressText = findViewById(R.id.register_address);
-        TextInputLayout cityText = findViewById(R.id.register_city);
-        TextInputLayout stateText = findViewById(R.id.register_state);
-        TextInputLayout zipText = findViewById(R.id.register_zip);
-        TextInputLayout emailText = findViewById(R.id.register_email);
-        TextInputLayout passwordText = findViewById(R.id.register_password);
+        TextInputLayout firstName = findViewById(R.id.register_firstName);
+        TextInputLayout lastName = findViewById(R.id.register_lastName);
+        TextInputLayout phone = findViewById(R.id.register_phone);
+        TextInputLayout address = findViewById(R.id.register_address);
+        TextInputLayout city = findViewById(R.id.register_city);
+        TextInputLayout state = findViewById(R.id.register_state);
+        TextInputLayout zip = findViewById(R.id.register_zip);
+        TextInputLayout email = findViewById(R.id.register_email);
+        TextInputLayout password = findViewById(R.id.register_password);
+
+        resources = getResources();
 
         Intent getIntent = getIntent();
         if (getIntent.hasExtra(LoginActivity.EXTRA_ID)) {
@@ -57,56 +54,67 @@ public class RegisterActivity extends AppCompatActivity {
             registerBtn.setText("Update");
 
             id = getIntent.getIntExtra(LoginActivity.EXTRA_ID, -1);
-            firstName = getIntent.getStringExtra(LoginActivity.EXTRA_FIRST_NAME);
-            lastName = getIntent.getStringExtra(LoginActivity.EXTRA_LAST_NAME);
-            phone = getIntent.getStringExtra(LoginActivity.EXTRA_PHONE);
-            address = getIntent.getStringExtra(LoginActivity.EXTRA_ADDRESS);
-            city = getIntent.getStringExtra(LoginActivity.EXTRA_CITY);
-            state = getIntent.getStringExtra(LoginActivity.EXTRA_STATE);
-            zip = getIntent.getStringExtra(LoginActivity.EXTRA_ZIP);
-            email = getIntent.getStringExtra(LoginActivity.EXTRA_EMAIL);
-            password = getIntent.getStringExtra(LoginActivity.EXTRA_PASSWORD);
-
-            firstNameText.getEditText().setText(firstName);
-            lastNameText.getEditText().setText(lastName);
-            phoneText.getEditText().setText(phone);
-            addressText.getEditText().setText(address);
-            cityText.getEditText().setText(city);
-            stateText.getEditText().setText(state);
-            zipText.getEditText().setText(zip);
-            emailText.getEditText().setText(email);
-            passwordText.getEditText().setText(password);
+            setValue(firstName, getValue(firstName));
+            setValue(lastName, getValue(lastName));
+            setValue(phone, getValue(phone));
+            setValue(address, getValue(address));
+            setValue(city, getValue(city));
+            setValue(state, getValue(state));
+            setValue(zip, getValue(zip));
+            setValue(email, getValue(email));
+            setValue(password, getValue(password));
 
         }
 
         findViewById(R.id.register_registerBtn).setOnClickListener(view -> {
 
-            firstName = firstNameText.getEditText().getText().toString();
-            lastName = lastNameText.getEditText().getText().toString();
-            phone = phoneText.getEditText().getText().toString();
-            address = addressText.getEditText().getText().toString();
-            city = cityText.getEditText().getText().toString();
-            state = stateText.getEditText().getText().toString();
-            zip = zipText.getEditText().getText().toString();
-            email = emailText.getEditText().getText().toString();
-            password = passwordText.getEditText().getText().toString();
+            if (isEmpty(firstName, lastName, phone, address, city, state, zip, email, password)) {
+                return;
+            }
 
             if (id != -1)
-                register = new Register(id,firstName, lastName, phone, address, city, state, zip, email, password);
+                register = new Register(id, getValue(firstName), getValue(lastName), getValue(phone), getValue(address),
+                        getValue(city), getValue(state), getValue(zip), getValue(email), getValue(password));
             else
-                register = new Register(firstName, lastName, phone, address, city, state, zip, email, password);
+                register = new Register(getValue(firstName), getValue(lastName), getValue(phone), getValue(address),
+                        getValue(city), getValue(state), getValue(zip), getValue(email), getValue(password));
 
 
             AppDatabase.databaseWriteExecutor.execute(() -> {
                 if (id != -1) registerDao.update(register);
                 else {
                     registerDao.insert(register);
-                    chatDao.insertChat(new ChatList(firstName));
+                    chatDao.insertChat(new ChatList(getValue(firstName)));
                 }
             });
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         });
 
+    }
+
+    private String getValue(@NonNull TextInputLayout view) {
+        return view.getEditText().getText().toString();
+    }
+
+    private void setValue(@NonNull TextInputLayout view, String value) {
+        view.getEditText().setText(value);
+    }
+
+    private boolean isEmpty(TextInputLayout... views) {
+        boolean foundError = false;
+
+        for (TextInputLayout view : views) {
+            String value = view.getEditText().getText().toString();
+            if (value.isEmpty()) {
+                view.setError(resources.getString(R.string.register_emptyError));
+                view.setErrorEnabled(true);
+                foundError = true;
+            } else {
+                view.setErrorEnabled(false);
+            }
+
+        }
+        return foundError;
     }
 }
