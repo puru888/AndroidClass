@@ -22,6 +22,7 @@
             android:textSize="30sp"
             android:paddingStart="15dp"
             android:paddingEnd="10dp"
-            tools:text="@tools:sample/lorem"/>
+            tools:text="@tools:sample/lorem"
+            />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
