@@ -21,4 +21,6 @@ public interface RegisterDao {
 
     @Query("select * from Register where email= :email and password= :password")
     Register getData(String email, String password);
+    @Query("select * from Register where id= :id")
+    Register getData(int id);
 }

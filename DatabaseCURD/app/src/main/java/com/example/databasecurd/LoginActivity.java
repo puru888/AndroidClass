@@ -61,6 +61,7 @@ public class LoginActivity extends AppCompatActivity {
 //                            .putExtra(EXTRA_EMAIL,resultData.get(0).getEmail())
 //                            .putExtra(EXTRA_PASSWORD,resultData.get(0).getPassword());
                     startActivity(intent);
+                    finish();
                 }else{
                    runOnUiThread(()->{
                        Toast.makeText(this,"Invalid Constraint",Toast.LENGTH_SHORT).show();
@@ -74,6 +75,7 @@ public class LoginActivity extends AppCompatActivity {
             Log.e("Time", date.toString());
             Intent intent = new Intent(this,RegisterActivity.class);
             startActivity(intent);
+            finish();
         });
     }
 }

@@ -23,6 +23,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private int id = -1;
     Register register = null;
+    Register data = null;
     private Resources resources;
 
     @Override
@@ -48,21 +49,26 @@ public class RegisterActivity extends AppCompatActivity {
         resources = getResources();
 
         Intent getIntent = getIntent();
-        if (getIntent.hasExtra(LoginActivity.EXTRA_ID)) {
+        if (getIntent.hasExtra(ChatListActivity.EXTRA_LOGGED_IN_ID)) {
 
             Button registerBtn = findViewById(R.id.register_registerBtn);
             registerBtn.setText("Update");
 
-            id = getIntent.getIntExtra(LoginActivity.EXTRA_ID, -1);
-            setValue(firstName, getValue(firstName));
-            setValue(lastName, getValue(lastName));
-            setValue(phone, getValue(phone));
-            setValue(address, getValue(address));
-            setValue(city, getValue(city));
-            setValue(state, getValue(state));
-            setValue(zip, getValue(zip));
-            setValue(email, getValue(email));
-            setValue(password, getValue(password));
+            id = getIntent.getIntExtra(ChatListActivity.EXTRA_LOGGED_IN_ID, -1);
+
+            appDatabase.getQueryExecutor().execute(() -> {
+                Register data = registerDao.getData(id);
+                Log.e("TAG", data.getFirstName());
+//                setValue(firstName, data.getFirstName());
+//                setValue(lastName, data.getLastName());
+//                setValue(phone, data.getPhone());
+//                setValue(address,data.getAddress());
+//                setValue(city, data.getCity());
+//                setValue(state, data.getState());
+//                setValue(zip, data.getZip());
+//                setValue(email, data.getEmail());
+//                setValue(password,data.getPassword());
+            });
 
         }
 
