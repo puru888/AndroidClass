@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.recify.adapters.FavoriteAdapter;
@@ -19,7 +20,10 @@ public class FavoriteActivity extends AppCompatActivity {
         list.setHasFixedSize(false);
         list.setLayoutManager(new LinearLayoutManager(this));
 
-        FavoriteAdapter adapter = new FavoriteAdapter(this);
+        Intent getIntent = getIntent();
+        int logInId = getIntent.getIntExtra(HomeActivity.EXTRA_HOME_LOGIN_ID,-1);
+
+        FavoriteAdapter adapter = new FavoriteAdapter(this,logInId);
         list.setAdapter(adapter);
     }
 }

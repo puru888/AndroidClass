@@ -22,9 +22,9 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteViewHolder> {
 
     private List<Recipe> recipeList = new ArrayList<>();
 
-    public FavoriteAdapter(Context context) {
+    public FavoriteAdapter(Context context, int loginId) {
         RecipeDao recipeDao = AppDatabase.getDatabaseInstance(context).recipeDao();
-        recipeDao.getAllRecipes().observe((LifecycleOwner) context, recipes -> {
+        recipeDao.getAllRecipes(loginId).observe((LifecycleOwner) context, recipes -> {
             recipeList = recipes;
             notifyDataSetChanged();
         });

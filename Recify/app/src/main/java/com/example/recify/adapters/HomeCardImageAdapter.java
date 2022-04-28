@@ -16,9 +16,15 @@ import java.util.List;
 public class HomeCardImageAdapter extends RecyclerView.Adapter<HomeCardImageViewHolder> {
 
     private List<Results> results = new ArrayList<>();
+    private int id = -1;
+
     public void replace(List<Results> results) {
         this.results = results;
         notifyDataSetChanged();
+    }
+
+    public HomeCardImageAdapter(int id) {
+        this.id = id;
     }
 
     @NonNull
@@ -32,7 +38,7 @@ public class HomeCardImageAdapter extends RecyclerView.Adapter<HomeCardImageView
     @Override
     public void onBindViewHolder(@NonNull HomeCardImageViewHolder holder, int position) {
         int recipeId = results.get(position).getId();
-        holder.bind(results.get(position),recipeId);
+        holder.bind(results.get(position), recipeId,id);
     }
 
     @Override

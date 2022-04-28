@@ -25,10 +25,6 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        EditText search = findViewById(R.id.activity_search_query);
-
-        Call<SearchRecipes> searchRecipesCall = RecipeApi.service.getSearchRecipes(search.getText().toString());
-
         RecyclerView list = findViewById(R.id.activity_search_searchResult);
         list.setHasFixedSize(false);
         list.setLayoutManager(new LinearLayoutManager(this));
@@ -37,6 +33,9 @@ public class SearchActivity extends AppCompatActivity {
         list.setAdapter(searchAdapter);
 
         findViewById(R.id.activity_searchButton).setOnClickListener(view -> {
+            EditText search = findViewById(R.id.activity_search_query);
+            Call<SearchRecipes> searchRecipesCall = RecipeApi.service.getSearchRecipes(search.getText().toString());
+            Log.e("TAG",search.getText().toString());
             searchRecipesCall.enqueue(new Callback<SearchRecipes>() {
                 @Override
                 public void onResponse(Call<SearchRecipes> call, Response<SearchRecipes> response) {

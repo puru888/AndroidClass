@@ -13,8 +13,8 @@ import java.util.List;
 @Dao
 public interface RecipeDao {
 
-    @Query("Select * from Recipe")
-    LiveData<List<Recipe>> getAllRecipes();
+    @Query("Select * from Recipe where loginId= :id")
+    LiveData<List<Recipe>> getAllRecipes(int id);
 
     @Insert
     void insert(Recipe... recipes);

@@ -20,6 +20,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> {
 
     public void replace(List<SearchRecipesResult> searchRecipesResultList){
         this.searchRecipesResultList = searchRecipesResultList;
+        notifyDataSetChanged();
     }
 
     @NonNull
