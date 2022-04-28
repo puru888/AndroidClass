@@ -4,6 +4,7 @@ import com.example.recify.entities.RandomFoodTrivia;
 import com.example.recify.entities.RecipeDetails;
 import com.example.recify.entities.RecipeInstructions;
 import com.example.recify.entities.SearchAllFood;
+import com.example.recify.entities.SearchRecipes;
 import com.example.recify.entities.SimilarRecipes;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface RecipeApi {
     String apiKey = "?apiKey=8ec169c009654ccba8e2b35f98d2079b";
@@ -38,4 +40,7 @@ public interface RecipeApi {
 
     @GET("recipes/{id}/analyzedInstructions"+apiKey)
     Call<List<RecipeInstructions>> getRecipeInstructions(@Path("id") int id);
+
+    @GET("recipes/complexSearch"+apiKey)
+    Call<SearchRecipes> getSearchRecipes(@Query(value = "search", encoded = true) String search);
 }

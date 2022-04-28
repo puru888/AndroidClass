@@ -59,6 +59,8 @@ public class HomeActivity extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 case R.id.menu_search:
+                    intent = new Intent(this,SearchActivity.class);
+                    startActivity(intent);
                     break;
                 case R.id.menu_favourite:
                     intent = new Intent(this,FavoriteActivity.class);
