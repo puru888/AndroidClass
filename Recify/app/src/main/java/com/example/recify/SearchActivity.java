@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
@@ -29,13 +30,15 @@ public class SearchActivity extends AppCompatActivity {
         list.setHasFixedSize(false);
         list.setLayoutManager(new LinearLayoutManager(this));
 
-        SearchAdapter searchAdapter = new SearchAdapter();
+        Intent intent = getIntent();
+        int loginId = intent.getIntExtra(HomeActivity.EXTRA_HOME_LOGIN_ID, -1);
+
+        SearchAdapter searchAdapter = new SearchAdapter(loginId);
         list.setAdapter(searchAdapter);
 
         findViewById(R.id.activity_searchButton).setOnClickListener(view -> {
             EditText search = findViewById(R.id.activity_search_query);
             Call<SearchRecipes> searchRecipesCall = RecipeApi.service.getSearchRecipes(search.getText().toString());
-            Log.e("TAG",search.getText().toString());
             searchRecipesCall.enqueue(new Callback<SearchRecipes>() {
                 @Override
                 public void onResponse(Call<SearchRecipes> call, Response<SearchRecipes> response) {

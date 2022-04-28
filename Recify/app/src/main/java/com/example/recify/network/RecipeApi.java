@@ -26,7 +26,7 @@ public interface RecipeApi {
 
     RecipeApi service = retrofit.create(RecipeApi.class);
 
-    @GET("trivia/random"+apiKey)
+    @GET("food/trivia/random"+apiKey)
     Call<RandomFoodTrivia> getFoodTrivia();
 
     @GET("food/search"+apiKey)
@@ -43,4 +43,6 @@ public interface RecipeApi {
 
     @GET("recipes/complexSearch"+apiKey)
     Call<SearchRecipes> getSearchRecipes(@Query(value = "search", encoded = true) String search);
+
+
 }

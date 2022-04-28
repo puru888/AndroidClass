@@ -17,6 +17,11 @@ import java.util.List;
 public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> {
 
     private List<SearchRecipesResult> searchRecipesResultList = new ArrayList<>();
+    private int logInId;
+
+    public SearchAdapter(int logInId) {
+        this.logInId = logInId;
+    }
 
     public void replace(List<SearchRecipesResult> searchRecipesResultList){
         this.searchRecipesResultList = searchRecipesResultList;
@@ -33,7 +38,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull SearchViewHolder holder, int position) {
-        holder.bind(searchRecipesResultList.get(position));
+        holder.bind(searchRecipesResultList.get(position),logInId);
     }
 
     @Override

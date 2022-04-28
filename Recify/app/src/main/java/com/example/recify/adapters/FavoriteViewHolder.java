@@ -28,22 +28,24 @@ public class FavoriteViewHolder extends RecyclerView.ViewHolder {
         name = itemView.findViewById(R.id.favoriteListItem_name);
 
         RecipeDao recipeDao = AppDatabase.getDatabaseInstance(itemView.getContext()).recipeDao();
+        TextView hidden = itemView.findViewById(R.id.hidden);
 
         itemView.findViewById(R.id.favoriteListItem_delete).setOnClickListener(view -> {
-           AppDatabase.databaseWriteExecutor.execute(()->{
-               recipeDao.delete(recipe);
-           });
+            AppDatabase.databaseWriteExecutor.execute(() -> {
+                recipeDao.delete(recipe);
+            });
         });
         itemView.setOnClickListener(view -> {
             Intent intent = new Intent(itemView.getContext(), RecipeDetailActivity.class);
-            intent.putExtra(EXTRA_FAVORITE_RECIPE_ID,recipe.getRecipeId());
+            intent.putExtra(EXTRA_FAVORITE_RECIPE_ID, recipe.getRecipeId());
             itemView.getContext().startActivity(intent);
         });
     }
 
-    public void bind(Recipe recipe){
+    public void bind(Recipe recipe) {
         this.recipe = recipe;
         Picasso.get().load(recipe.getImage()).into(image);
         name.setText(recipe.getName());
     }
+
 }

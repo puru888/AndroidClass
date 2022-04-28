@@ -40,16 +40,22 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         int id = -1;
-        int loginId = intent.getIntExtra(HomeCardImageViewHolder.EXTRA_LOGIN_ID,-1);
-        if (intent.hasExtra(HomeCardImageViewHolder.EXTRA_RECIPE_ID)){
+        int loginId = 0;
+        if (intent.hasExtra(HomeCardImageViewHolder.EXTRA_LOGIN_ID))
+            loginId = intent.getIntExtra(HomeCardImageViewHolder.EXTRA_LOGIN_ID, -1);
+        else if (intent.hasExtra(SearchViewHolder.EXTRA_SEARCH_LOGIN_ID))
+            loginId = intent.getIntExtra(SearchViewHolder.EXTRA_SEARCH_LOGIN_ID, -1);
+
+        Log.e("TAG",String.valueOf(loginId) );
+
+        if (intent.hasExtra(HomeCardImageViewHolder.EXTRA_RECIPE_ID)) {
             id = intent.getIntExtra(HomeCardImageViewHolder.EXTRA_RECIPE_ID, -1);
-        }
-        else if (intent.hasExtra(FavoriteViewHolder.EXTRA_FAVORITE_RECIPE_ID)){
+        } else if (intent.hasExtra(FavoriteViewHolder.EXTRA_FAVORITE_RECIPE_ID)) {
             id = intent.getIntExtra(FavoriteViewHolder.EXTRA_FAVORITE_RECIPE_ID, -1);
-        }
-        else if (intent.hasExtra(SearchViewHolder.EXTRA_SEARCH_RECIPE_ID)){
+        } else if (intent.hasExtra(SearchViewHolder.EXTRA_SEARCH_RECIPE_ID)) {
             id = intent.getIntExtra(SearchViewHolder.EXTRA_SEARCH_RECIPE_ID, -1);
         }
+
         ImageView recipeDetailImg = findViewById(R.id.recipe_detail_image);
         TextView title = findViewById(R.id.recipe_detail_title);
 
@@ -91,11 +97,11 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
             }
         });
-
+        int finalLoginId = loginId;
         findViewById(R.id.recipe_detail_favourite).setOnClickListener(view -> {
             RecipeDao recipeDao = AppDatabase.getDatabaseInstance(this).recipeDao();
             AppDatabase.databaseWriteExecutor.execute(() -> {
-                Recipe recipe = new Recipe(recipeDetails.getId(),loginId,recipeDetails.getTitle(), recipeDetails.getImage());
+                Recipe recipe = new Recipe(recipeDetails.getId(), finalLoginId, recipeDetails.getTitle(), recipeDetails.getImage());
                 recipeDao.insert(recipe);
             });
             Toast.makeText(this, "added to favorites", Toast.LENGTH_SHORT).show();

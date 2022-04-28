@@ -18,7 +18,9 @@ public class SearchViewHolder extends RecyclerView.ViewHolder {
     private final ImageView image;
     private final TextView name;
     private SearchRecipesResult searchRecipesResult;
+    private int loginId;
     public static final String EXTRA_SEARCH_RECIPE_ID = "searchRecipeId";
+    public static final String EXTRA_SEARCH_LOGIN_ID = "searchLoginId";
 
     public SearchViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -27,13 +29,15 @@ public class SearchViewHolder extends RecyclerView.ViewHolder {
 
         itemView.setOnClickListener(view -> {
             Intent intent = new Intent(itemView.getContext(), RecipeDetailActivity.class)
-            .putExtra(EXTRA_SEARCH_RECIPE_ID,searchRecipesResult.getId());
+                    .putExtra(EXTRA_SEARCH_RECIPE_ID, searchRecipesResult.getId())
+                    .putExtra(EXTRA_SEARCH_LOGIN_ID, loginId);
             itemView.getContext().startActivity(intent);
         });
     }
 
-    public void bind(SearchRecipesResult searchRecipesResult){
+    public void bind(SearchRecipesResult searchRecipesResult, int loginId) {
         this.searchRecipesResult = searchRecipesResult;
+        this.loginId = loginId;
         Picasso.get().load(searchRecipesResult.getImage()).into(image);
         name.setText(searchRecipesResult.getTitle());
     }
