@@ -10,7 +10,9 @@ import android.telecom.Call;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.recify.adapters.FavoriteViewHolder;
 import com.example.recify.adapters.HomeCardImageViewHolder;
 import com.example.recify.adapters.RecipeStepsAdapter;
 import com.example.recify.db.AppDatabase;
@@ -36,8 +38,13 @@ public class RecipeDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recipe_detail);
 
         Intent intent = getIntent();
-        int id = intent.getIntExtra(HomeCardImageViewHolder.EXTRA_RECIPE_ID, -1);
-
+        int id = -1;
+        if (intent.hasExtra(HomeCardImageViewHolder.EXTRA_RECIPE_ID)){
+            id = intent.getIntExtra(HomeCardImageViewHolder.EXTRA_RECIPE_ID, -1);
+        }
+        else if (intent.hasExtra(FavoriteViewHolder.EXTRA_FAVORITE_RECIPE_ID)){
+            id = intent.getIntExtra(FavoriteViewHolder.EXTRA_FAVORITE_RECIPE_ID, -1);
+        }
         ImageView recipeDetailImg = findViewById(R.id.recipe_detail_image);
         TextView title = findViewById(R.id.recipe_detail_title);
 
@@ -83,9 +90,10 @@ public class RecipeDetailActivity extends AppCompatActivity {
         findViewById(R.id.recipe_detail_favourite).setOnClickListener(view -> {
             RecipeDao recipeDao = AppDatabase.getDatabaseInstance(this).recipeDao();
             AppDatabase.databaseWriteExecutor.execute(() -> {
-                Recipe recipe = new Recipe(recipeDetails.getTitle(),recipeDetails.getImage());
+                Recipe recipe = new Recipe(recipeDetails.getId(),recipeDetails.getTitle(), recipeDetails.getImage());
                 recipeDao.insert(recipe);
             });
+            Toast.makeText(this, "added to favorites", Toast.LENGTH_SHORT).show();
         });
 
     }

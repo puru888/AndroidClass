@@ -4,23 +4,37 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.google.gson.annotations.SerializedName;
+
 @Entity
 public class Recipe {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
+    @SerializedName("id")
+    @ColumnInfo
+    private int recipeId;
     @ColumnInfo
     private String name;
     @ColumnInfo
     private String image;
 
-    public Recipe(String name, String image) {
+    public Recipe(int recipeId, String name, String image) {
+        this.recipeId = recipeId;
         this.name = name;
         this.image = image;
     }
 
     public int getId() {
         return id;
+    }
+
+    public int getRecipeId() {
+        return recipeId;
+    }
+
+    public void setRecipeId(int recipeId) {
+        this.recipeId = recipeId;
     }
 
     public void setId(int id) {

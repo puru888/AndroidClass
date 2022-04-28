@@ -12,7 +12,7 @@ import com.example.recify.entities.Recipe;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Recipe.class}, version = 1)
+@Database(entities = {Recipe.class}, version = 2)
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract RecipeDao recipeDao();

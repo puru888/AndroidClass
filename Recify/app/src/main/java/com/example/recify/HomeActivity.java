@@ -61,7 +61,6 @@ public class HomeActivity extends AppCompatActivity {
                 case R.id.menu_search:
                     break;
                 case R.id.menu_favourite:
-                    Log.e("TAG","faVou");
                     intent = new Intent(this,FavoriteActivity.class);
                     startActivity(intent);
                     break;
