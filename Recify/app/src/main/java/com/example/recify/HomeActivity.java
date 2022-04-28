@@ -6,12 +6,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.example.recify.adapters.HomeCardImageAdapter;
 import com.example.recify.entities.SearchAllFood;
 import com.example.recify.network.RecipeApi;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,6 +28,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         Call<SearchAllFood> search = RecipeApi.service.getSearchResult();
+        NavigationBarView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
 
         RecyclerView foodList = findViewById(R.id.home_activity_recycler_view);
@@ -46,5 +50,24 @@ public class HomeActivity extends AppCompatActivity {
                 Log.e("TAG",t.toString() );
             }
         });
+
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            Intent intent = null;
+            switch (item.getItemId()){
+                case R.id.menu_home:
+                    intent = new Intent(this,HomeActivity.class);
+                    startActivity(intent);
+                    break;
+                case R.id.menu_search:
+                    break;
+                case R.id.menu_favourite:
+                    Log.e("TAG","faVou");
+                    intent = new Intent(this,FavoriteActivity.class);
+                    startActivity(intent);
+                    break;
+            }
+            return true;
+        });
+
     }
 }

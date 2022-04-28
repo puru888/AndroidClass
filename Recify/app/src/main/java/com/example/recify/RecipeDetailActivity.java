@@ -13,6 +13,9 @@ import android.widget.TextView;
 
 import com.example.recify.adapters.HomeCardImageViewHolder;
 import com.example.recify.adapters.RecipeStepsAdapter;
+import com.example.recify.db.AppDatabase;
+import com.example.recify.db.Dao.RecipeDao;
+import com.example.recify.entities.Recipe;
 import com.example.recify.entities.RecipeDetails;
 import com.example.recify.entities.RecipeInstructions;
 import com.example.recify.entities.SimilarRecipes;
@@ -25,6 +28,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class RecipeDetailActivity extends AppCompatActivity {
+    RecipeDetails recipeDetails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +57,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
         recipeDetailsCall.enqueue(new Callback<RecipeDetails>() {
             @Override
             public void onResponse(retrofit2.Call<RecipeDetails> call, Response<RecipeDetails> response) {
-                RecipeDetails recipeDetails = response.body();
+                recipeDetails = response.body();
                 Picasso.get().load(recipeDetails.getImage()).into(recipeDetailImg);
                 title.setText(recipeDetails.getTitle());
             }
@@ -75,5 +79,14 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
             }
         });
+
+        findViewById(R.id.recipe_detail_favourite).setOnClickListener(view -> {
+            RecipeDao recipeDao = AppDatabase.getDatabaseInstance(this).recipeDao();
+            AppDatabase.databaseWriteExecutor.execute(() -> {
+                Recipe recipe = new Recipe(recipeDetails.getTitle(),recipeDetails.getImage());
+                recipeDao.insert(recipe);
+            });
+        });
+
     }
 }
